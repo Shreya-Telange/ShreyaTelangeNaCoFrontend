@@ -1,0 +1,148 @@
+General body styles for background and font
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Navbar Styles */
+.navbar {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1030; /* Ensures the navbar stays above other content */
+  }
+  
+  .navbar-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .navbar-brand h5 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #555;
+  }
+  
+  .navbar .d-flex a {
+    font-size: 1.2rem;
+    color: #555;
+    text-decoration: none;
+  }
+  
+  .navbar .d-flex a:hover {
+    color: #007bff;
+  }
+  
+  .navbar .bi {
+    font-size: 1.4rem;
+  }
+  
+  body {
+    padding-top: 70px; /* Adds space below the navbar to prevent overlap with content */
+  }
+  
+  
+  .section-title {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  /* Box styling for content sections */
+  .box {
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 15px;
+    height: 100%;
+    background-color: #fff;
+  }
+
+  .box1 {
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 15px;
+    height: 100%;
+    background-color: #fff;
+  }
+
+  .skills {
+    font-weight: bold;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #000;
+    border-radius: 50%;
+    margin: auto;
+    display: block;
+  }
+
+  .icon-circle {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #000;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    line-height: 55px;
+    font-weight: bold;
+  }
+
+  .project-item {
+    margin: 10px 0;
+    border: 1px dashed #000;
+    padding: 10px;
+  }
+
+  .education {
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  /* Responsive design for screens smaller than 768px */
+  @media (max-width: 768px) {
+    .avatar {
+      width: 80px;
+      height: 80px;
+    }
+
+    .icon-circle {
+      width: 50px;
+      height: 50px;
+      line-height: 45px;
+    }
+    .skills-projects-row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+  
+      .skills-projects-row > div {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 15px; /* Adds spacing between Skills and Projects */
+      }
+  }
+
+  /* Additional responsive design for screens smaller than 576px */
+  @media (max-width: 576px) {
+    .project-item {
+      font-size: 14px;
+      padding: 8px;
+    }
+
+    .personal-details .row {
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center items horizontally */
+      }
+    
+      .personal-details .col-6 {
+        width: 100%; /* Make each section take full width */
+        text-align: center; /* Center text within each section */
+        margin-bottom: 10px; /* Add spacing between sections */
+      }
+  }
+ 
+  
