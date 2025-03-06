@@ -9,29 +9,33 @@
 <body>
     <div class="container">
         <h1>To-Do List</h1>
-       
-        
+
         <div class="input-container">
             <input type="text" id="taskInput" placeholder="Enter a task">
-            <button id="addTask">ADD ITEM</button>
+            <button onclick="addTask()">ADD ITEM</button>
         </div>
 
         <div class="lists">
             <div class="list-container">
                 <h2>To-Do List</h2>
-                <ul id="todoList" class="task-list"></ul>
+                <ul id="todoList"></ul>
             </div>
+
             <div class="buttons">
-                <button id="moveRight">MOVE TO RIGHT ></button>
-                <button id="moveLeft">< MOVE TO LEFT</button>
+                <button onclick="moveRight()">MOVE TO RIGHT ></button>
+                <button onclick="moveLeft()"> < MOVE TO LEFT</button>
             </div>
+
             <div class="list-container">
                 <h2>Complete List</h2>
-                <ul id="completedList" class="task-list"></ul>
+                <ul id="completedList"></ul>
             </div>
         </div>
 
-        <button id="removeSelected">REMOVE</button>
+        <button onclick="removeSelected()">REMOVE</button>
+
+        <!-- Toaster Notification -->
+        <div id="toast"></div>
     </div>
 
     <script src="assets/js/script.js"></script>
