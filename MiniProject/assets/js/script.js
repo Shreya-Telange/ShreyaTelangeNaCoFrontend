@@ -1,86 +1,107 @@
-document.addEventListener("DOMContentLoaded", function() {
-    loadTasks();
-    
-    document.getElementById("addTask").addEventListener("click", addTask);
-    document.getElementById("moveRight").addEventListener("click", () => moveTasks("todoList", "completedList"));
-    document.getElementById("moveLeft").addEventListener("click", () => moveTasks("completedList", "todoList"));
-    document.getElementById("removeSelected").addEventListener("click", removeSelected);
-   
-});
+// Select Elements
+const taskInput = document.getElementById("taskInput");
+const todoList = document.getElementById("todoList");
+const completedList = document.getElementById("completedList");
+let selectedTask = null;
 
+// Function to Show Toast Messages
+function showToast(message, color = "black") {
+    let toast = document.getElementById("toast");
+    toast.innerText = message;
+    toast.style.backgroundColor = color;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 3000);
+}
+
+// Add Task (Fixed Duplicate Check)
 function addTask() {
-    let input = document.getElementById("taskInput");
-    let taskText = input.value.trim();
+    let taskText = taskInput.value.trim();
 
     if (taskText === "") {
-        alert("Enter a task!");
+        showToast("Task cannot be empty!", "red");
         return;
     }
 
-    let newTask = createTaskElement(taskText);
-    document.getElementById("todoList").appendChild(newTask);  // Adds task at the BOTTOM of the list
-    input.value = "";
-    saveTasks();
-}
+    // Check for duplicates in both lists
+    let allTasks = [...document.querySelectorAll("#todoList li, #completedList li")].map(li => li.childNodes[0].nodeValue.trim());
 
-function createTaskElement(text) {
+    if (allTasks.includes(taskText)) {
+        showToast("Duplicate Item! Already exists.", "red");
+        return;
+    }
+
+    // Create List Item
     let li = document.createElement("li");
-    li.textContent = text;
-    li.addEventListener("click", () => li.classList.toggle("selected"));
-    li.addEventListener("dblclick", () => editTask(li));
-    return li;
+    li.innerText = taskText;
+    li.onclick = () => selectTask(li);
+
+    // Add Edit Button
+    let editBtn = document.createElement("button");
+    editBtn.innerText = "✏ Edit";
+    editBtn.onclick = (e) => {
+        e.stopPropagation(); // Prevent selecting the task
+        editTask(li);
+    };
+
+    li.appendChild(editBtn);
+    todoList.appendChild(li);
+    taskInput.value = "";
+
+    showToast("New Item Added!", "green");
 }
 
-function editTask(task) {
-    let newText = prompt("Edit task:", task.textContent);
-    if (newText) {
-        task.textContent = newText;
-        saveTasks();
+// Select Task
+function selectTask(task) {
+    if (selectedTask) {
+        selectedTask.classList.remove("selected");
     }
+    selectedTask = task;
+    selectedTask.classList.add("selected");
 }
 
-function moveTasks(fromId, toId) {
-    let fromList = document.getElementById(fromId);
-    let toList = document.getElementById(toId);
-    let selectedTasks = fromList.querySelectorAll(".selected");
-
-    if (selectedTasks.length === 0) {
-        alert("Select a task first!");
+// Move Right (To Completed List)
+function moveRight() {
+    if (!selectedTask) {
+        showToast("Select an item first!", "blue");
         return;
     }
-
-    selectedTasks.forEach(task => {
-        task.classList.remove("selected");
-        toList.appendChild(task);  // Moves tasks to the BOTTOM of the new list
-    });
-
-    saveTasks();
+    completedList.appendChild(selectedTask);
+    selectedTask.classList.remove("selected");
+    selectedTask = null;
+    showToast("Item moved to completed list", "green");
 }
 
+// Move Left (Back to To-Do List)
+function moveLeft() {
+    if (!selectedTask) {
+        showToast("Select an item first!", "blue");
+        return;
+    }
+    todoList.appendChild(selectedTask);
+    selectedTask.classList.remove("selected");
+    selectedTask = null;
+    showToast("Item moved back to To-Do list", "orange");
+}
+
+// Remove Task
 function removeSelected() {
-    let selectedTasks = document.querySelectorAll(".selected");
-    
-    if (selectedTasks.length === 0) {
-        alert("Select a task first!");
+    if (!selectedTask) {
+        showToast("Select an item first!", "blue");
         return;
     }
-
-    selectedTasks.forEach(task => task.remove());
-    saveTasks();
+    selectedTask.remove();
+    selectedTask = null;
+    showToast("Item removed!", "red");
 }
 
-
-function saveTasks() {
-    localStorage.setItem("todoList", document.getElementById("todoList").innerHTML);
-    localStorage.setItem("completedList", document.getElementById("completedList").innerHTML);
-}
-
-function loadTasks() {
-    document.getElementById("todoList").innerHTML = localStorage.getItem("todoList") || "";
-    document.getElementById("completedList").innerHTML = localStorage.getItem("completedList") || "";
-
-    document.querySelectorAll("li").forEach(task => {
-        task.addEventListener("click", () => task.classList.toggle("selected"));
-        task.addEventListener("dblclick", () => editTask(task));
-    });
+// Edit Task
+function editTask(task) {
+    let newTask = prompt("Edit Task:", task.childNodes[0].nodeValue.trim());
+    if (newTask && newTask.trim() !== "") {
+        task.childNodes[0].nodeValue = newTask.trim();
+        showToast("Task Updated!", "blue");
+    }
 }
