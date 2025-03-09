@@ -60,12 +60,13 @@ button:hover {
 
 /* List Containers */
 .lists {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    margin-top: 20px;
-}
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-top: 27px;
+    }
+
 
 .list-container {
     width: 40%;
