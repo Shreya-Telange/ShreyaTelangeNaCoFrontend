@@ -13,6 +13,7 @@
         <div class="input-container">
             <input type="text" id="taskInput" placeholder="Enter a task">
             <button onclick="addTask()">ADD ITEM</button>
+            <button onclick="removeSelected()">REMOVE</button>
         </div>
 
         <div class="lists">
@@ -22,8 +23,9 @@
             </div>
 
             <div class="buttons">
-                <button onclick="moveRight()">MOVE TO RIGHT ></button>
-                <button onclick="moveLeft()"> < MOVE TO LEFT</button>
+                <button id="moveRightBtn" onclick="moveRight()">Move to Right ></button>
+                <button id="moveLeftBtn" onclick="moveLeft()">< Move to Left</button>
+                
             </div>
 
             <div class="list-container">
@@ -32,9 +34,7 @@
             </div>
         </div>
 
-        <button onclick="removeSelected()">REMOVE</button>
-
-        <!-- Toaster Notification -->
+         <!-- Toaster Notification -->
         <div id="toast"></div>
     </div>
 
