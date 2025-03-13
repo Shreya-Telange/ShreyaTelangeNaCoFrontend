@@ -56,21 +56,6 @@ h1 {
     white-space: nowrap;
 }
 
-/* Responsive Design: Stack elements on smaller screens */
-@media screen and (max-width: 768px) {
-    .input-container {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-
-    .input-container input,
-    .input-container button {
-        width: 100%;
-        max-width: 400px; /* Prevent excessive stretching */
-    }
-}
-
 
 /* Buttons */
 button {
@@ -159,26 +144,6 @@ li.selected {
     background-color: #ffcc00;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-    .container {
-        width: 90%;
-    }
-
-    .lists {
-        flex-direction: column;
-    }
-
-    .list-container {
-        width: 100%;
-    }
-
-    .buttons-container {
-        flex-direction: row;
-        justify-content: center;
-    }
-}
-
 
 /* Toaster Notification */
 #toast {
@@ -209,3 +174,41 @@ li.selected {
     0%, 100% { opacity: 0; }
     20%, 80% { opacity: 1; }
 }
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    .lists {
+        flex-direction: column;
+    }
+
+    .list-container {
+        width: 100%;
+    }
+
+    .buttons-container {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+
+
+/* Responsive Design: Stack elements on smaller screens */
+@media screen and (max-width: 768px) {
+    .input-container {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .input-container input,
+    .input-container button {
+        width: 100%;
+        max-width: 400px; /* Prevent excessive stretching */
+    }
+}
+
