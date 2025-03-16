@@ -4,18 +4,37 @@ const todoList = document.getElementById("todoList");
 const completedList = document.getElementById("completedList");
 const moveRightBtn = document.getElementById("moveRightBtn");
 const moveLeftBtn = document.getElementById("moveLeftBtn");
+const toast = document.getElementById("toast"); // Toast element
 let selectedTask = null;
+let undoTimeout = null; // Store timeout ID for undo action
+let lastDeletedTask = null; // Store deleted task
+let lastDeletedParent = null; // Store where the task was deleted from
 
-// Function to Show Toast Messages
-function showToast(message, color = "black") {
-    let toast = document.getElementById("toast");
-    toast.innerText = message;
+// Function to Show Toast Messages (with Undo Button for Removal)
+function showToast(message, color = "black", undoFunction = null) {
+    toast.innerHTML = message;
     toast.style.backgroundColor = color;
     toast.classList.add("show");
 
-    setTimeout(() => {
+    if (undoFunction) {
+        let undoBtn = document.createElement("button");
+        undoBtn.innerHTML = "Undo";
+        undoBtn.style.marginLeft = "10px";
+        undoBtn.style.color = "white";
+        undoBtn.style.border = "none";
+        undoBtn.style.background = "transparent";
+        undoBtn.style.cursor = "pointer";
+        undoBtn.onclick = () => {
+            undoFunction();
+            toast.classList.remove("show");
+            clearTimeout(undoTimeout);
+        };
+        toast.appendChild(undoBtn);
+    }
+
+    undoTimeout = setTimeout(() => {
         toast.classList.remove("show");
-    }, 3000);
+    }, 5000);
 }
 
 // Function to Update Button Text Based on Screen Size
@@ -55,15 +74,23 @@ function addTask() {
     li.innerText = taskText;
     li.onclick = () => selectTask(li);
 
-    // Add Edit Button
+
+    //Pencil icon
     let editBtn = document.createElement("button");
-    editBtn.innerText = "✏ Edit";
+    editBtn.innerHTML = "&#9998;"; 
+    editBtn.style.border = "none";
+    editBtn.style.background = "transparent";
+    editBtn.style.cursor = "pointer";
+    editBtn.style.marginLeft = "10px";
+    editBtn.style.color = "#333";  
+    editBtn.style.fontSize = "16px";
     editBtn.onclick = (e) => {
-        e.stopPropagation(); // Prevent selecting the task
+        e.stopPropagation(); 
         editTask(li);
     };
-
+    
     li.appendChild(editBtn);
+    
     todoList.appendChild(li);
     taskInput.value = "";
 
@@ -87,7 +114,7 @@ function moveRight() {
     }
 
     if (window.innerWidth <= 768) {
-        //  Move task to the To-Do List (Small Screens)
+        // Move task to the To-Do List (Small Screens)
         if (selectedTask.parentNode !== todoList) {
             todoList.appendChild(selectedTask);
             showToast("Item moved to To-Do List", "green");
@@ -95,7 +122,7 @@ function moveRight() {
             showToast("Already in To-Do List!", "blue");
         }
     } else {
-        //  Move task to Completed List (Large Screens)
+        // Move task to Completed List (Large Screens)
         if (selectedTask.parentNode !== completedList) {
             completedList.appendChild(selectedTask);
             showToast("Item moved to completed list", "green");
@@ -133,21 +160,43 @@ function moveLeft() {
     selectedTask = null;
 }
 
-// Remove Task
+// Remove Task (with Undo Option)
 function removeSelected() {
     if (!selectedTask) {
         showToast("Select an item first!", "blue");
         return;
     }
+
+    lastDeletedTask = selectedTask;
+    lastDeletedParent = selectedTask.parentNode; // Store where the task was deleted from
     selectedTask.remove();
     selectedTask = null;
-    showToast("Item removed!", "red");
+
+    // Show toast with Undo option
+    showToast("Item removed!", "red", undoRemove);
 }
 
-// Edit Task
+// Undo Remove
+function undoRemove() {
+    if (lastDeletedTask && lastDeletedParent) {
+        lastDeletedParent.appendChild(lastDeletedTask);
+        showToast("Undo successful!", "green");
+        lastDeletedTask = null;
+        lastDeletedParent = null;
+    }
+}
+
+// Edit Task (Prevent Duplicates)
 function editTask(task) {
     let newTask = prompt("Edit Task:", task.childNodes[0].nodeValue.trim());
     if (newTask && newTask.trim() !== "") {
+        // Check for duplicates
+        let allTasks = [...document.querySelectorAll("#todoList li, #completedList li")].map(li => li.childNodes[0].nodeValue.trim());
+        if (allTasks.includes(newTask.trim())) {
+            showToast("Duplicate Item! Already exists.", "red");
+            return;
+        }
+
         task.childNodes[0].nodeValue = newTask.trim();
         showToast("Task Updated!", "blue");
     }
