@@ -5,10 +5,10 @@ const completedList = document.getElementById("completedList");
 const moveRightBtn = document.getElementById("moveRightBtn");
 const moveLeftBtn = document.getElementById("moveLeftBtn");
 const toast = document.getElementById("toast"); // Toast element
-let selectedTask = null;
+let selectedTasks = new Set(); // Store multiple selected tasks
 let undoTimeout = null; // Store timeout ID for undo action
-let lastDeletedTask = null; // Store deleted task
-let lastDeletedParent = null; // Store where the task was deleted from
+let lastDeletedTasks = []; // Store deleted tasks
+let lastDeletedParent = null; // Store where the tasks were deleted from
 
 // Function to Show Toast Messages (with Undo Button for Removal)
 function showToast(message, color = "black", undoFunction = null) {
@@ -72,10 +72,9 @@ function addTask() {
     // Create List Item
     let li = document.createElement("li");
     li.innerText = taskText;
-    li.onclick = () => selectTask(li);
+    li.onclick = () => toggleSelectTask(li);
 
-
-    //Pencil icon
+    // Add Pencil Icon for Editing
     let editBtn = document.createElement("button");
     editBtn.innerHTML = "&#9998;"; 
     editBtn.style.border = "none";
@@ -85,103 +84,84 @@ function addTask() {
     editBtn.style.color = "#333";  
     editBtn.style.fontSize = "16px";
     editBtn.onclick = (e) => {
-        e.stopPropagation(); 
+        e.stopPropagation(); // Prevent selecting the task
         editTask(li);
     };
-    
+
     li.appendChild(editBtn);
-    
     todoList.appendChild(li);
     taskInput.value = "";
 
     showToast("New Item Added!", "green");
 }
 
-// Select Task
-function selectTask(task) {
-    if (selectedTask) {
-        selectedTask.classList.remove("selected");
+// Toggle Selection of a Task
+function toggleSelectTask(task) {
+    if (selectedTasks.has(task)) {
+        selectedTasks.delete(task);
+        task.classList.remove("selected");
+    } else {
+        selectedTasks.add(task);
+        task.classList.add("selected");
     }
-    selectedTask = task;
-    selectedTask.classList.add("selected");
+}
+
+// Move Selected Tasks (Handles Move Right, Move Left, Move Up, Move Down)
+function moveSelectedTasks(targetList, message) {
+    if (selectedTasks.size === 0) {
+        showToast("Select at least one item!", "blue");
+        return;
+    }
+
+    selectedTasks.forEach(task => {
+        targetList.appendChild(task);
+        task.classList.remove("selected");
+    });
+
+    selectedTasks.clear();
+    showToast(message, "green");
 }
 
 // Move Up (Send to To-Do List on Small Screens, Move Right on Large Screens)
 function moveRight() {
-    if (!selectedTask) {
-        showToast("Select an item first!", "blue");
-        return;
-    }
-
     if (window.innerWidth <= 768) {
-        // Move task to the To-Do List (Small Screens)
-        if (selectedTask.parentNode !== todoList) {
-            todoList.appendChild(selectedTask);
-            showToast("Item moved to To-Do List", "green");
-        } else {
-            showToast("Already in To-Do List!", "blue");
-        }
+        moveSelectedTasks(todoList, "Items moved to To-Do List");
     } else {
-        // Move task to Completed List (Large Screens)
-        if (selectedTask.parentNode !== completedList) {
-            completedList.appendChild(selectedTask);
-            showToast("Item moved to completed list", "green");
-        }
+        moveSelectedTasks(completedList, "Items moved to Completed List");
     }
-
-    selectedTask.classList.remove("selected");
-    selectedTask = null;
 }
 
 // Move Down (Send to Completed List on Small Screens, Move Left on Large Screens)
 function moveLeft() {
-    if (!selectedTask) {
-        showToast("Select an item first!", "blue");
-        return;
-    }
-
     if (window.innerWidth <= 768) {
-        //  Move task to the Completed List (Small Screens)
-        if (selectedTask.parentNode !== completedList) {
-            completedList.appendChild(selectedTask);
-            showToast("Item moved to Completed List", "orange");
-        } else {
-            showToast("Already in Completed List!", "blue");
-        }
+        moveSelectedTasks(completedList, "Items moved to Completed List");
     } else {
-        //  Move task back to To-Do List (Large Screens)
-        if (selectedTask.parentNode !== todoList) {
-            todoList.appendChild(selectedTask);
-            showToast("Item moved back to To-Do list", "orange");
-        }
+        moveSelectedTasks(todoList, "Items moved back to To-Do List");
     }
-
-    selectedTask.classList.remove("selected");
-    selectedTask = null;
 }
 
-// Remove Task (with Undo Option)
+// Remove Selected Tasks (with Undo Option)
 function removeSelected() {
-    if (!selectedTask) {
-        showToast("Select an item first!", "blue");
+    if (selectedTasks.size === 0) {
+        showToast("Select at least one item!", "blue");
         return;
     }
 
-    lastDeletedTask = selectedTask;
-    lastDeletedParent = selectedTask.parentNode; // Store where the task was deleted from
-    selectedTask.remove();
-    selectedTask = null;
+    lastDeletedTasks = [...selectedTasks];
+    lastDeletedParent = lastDeletedTasks[0].parentNode;
 
-    // Show toast with Undo option
-    showToast("Item removed!", "red", undoRemove);
+    lastDeletedTasks.forEach(task => task.remove());
+    selectedTasks.clear();
+
+    showToast("Items removed!", "red", undoRemove);
 }
 
 // Undo Remove
 function undoRemove() {
-    if (lastDeletedTask && lastDeletedParent) {
-        lastDeletedParent.appendChild(lastDeletedTask);
+    if (lastDeletedTasks.length > 0 && lastDeletedParent) {
+        lastDeletedTasks.forEach(task => lastDeletedParent.appendChild(task));
         showToast("Undo successful!", "green");
-        lastDeletedTask = null;
+        lastDeletedTasks = [];
         lastDeletedParent = null;
     }
 }
