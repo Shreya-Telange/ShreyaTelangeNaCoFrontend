@@ -7,8 +7,7 @@ const moveLeftBtn = document.getElementById("moveLeftBtn");
 const toast = document.getElementById("toast"); // Toast element
 let selectedTasks = new Set(); // Store multiple selected tasks
 let undoTimeout = null; // Store timeout ID for undo action
-let lastDeletedTasks = []; // Store deleted tasks
-let lastDeletedParent = null; // Store where the tasks were deleted from
+let lastDeletedTasks = []; // Store deleted tasks with their original lists
 
 // Function to Show Toast Messages (with Undo Button for Removal)
 function showToast(message, color = "black", undoFunction = null) {
@@ -74,17 +73,17 @@ function addTask() {
     li.innerText = taskText;
     li.onclick = () => toggleSelectTask(li);
 
-    // Add Pencil Icon for Editing
+    //  Add Pencil Icon for Editing
     let editBtn = document.createElement("button");
     editBtn.innerHTML = "&#9998;"; 
     editBtn.style.border = "none";
     editBtn.style.background = "transparent";
     editBtn.style.cursor = "pointer";
     editBtn.style.marginLeft = "10px";
-    editBtn.style.color = "#333";  
+    editBtn.style.color = "#333"; 
     editBtn.style.fontSize = "16px";
     editBtn.onclick = (e) => {
-        e.stopPropagation(); // Prevent selecting the task
+        e.stopPropagation(); 
         editTask(li);
     };
 
@@ -147,22 +146,26 @@ function removeSelected() {
         return;
     }
 
-    lastDeletedTasks = [...selectedTasks];
-    lastDeletedParent = lastDeletedTasks[0].parentNode;
+    lastDeletedTasks = [...selectedTasks].map(task => ({ 
+        element: task, 
+        parent: task.parentNode 
+    })); 
 
-    lastDeletedTasks.forEach(task => task.remove());
+    lastDeletedTasks.forEach(({ element }) => element.remove());
     selectedTasks.clear();
 
     showToast("Items removed!", "red", undoRemove);
 }
 
-// Undo Remove
+//  Undo Remove (Restore items to their original lists)
 function undoRemove() {
-    if (lastDeletedTasks.length > 0 && lastDeletedParent) {
-        lastDeletedTasks.forEach(task => lastDeletedParent.appendChild(task));
+    if (lastDeletedTasks.length > 0) {
+        lastDeletedTasks.forEach(({ element, parent }) => {
+            parent.appendChild(element); 
+        });
+
         showToast("Undo successful!", "green");
         lastDeletedTasks = [];
-        lastDeletedParent = null;
     }
 }
 
