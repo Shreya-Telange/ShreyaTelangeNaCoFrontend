@@ -26,23 +26,40 @@
       </header>
 
     <main>
-        <div class="container">
-            <div class="contact-tabs">
-                <div class="tab active"><i class="fas fa-map-marker-alt"></i> Address</div>
-                <div class="tab"><i class="fas fa-phone"></i> Phone</div>
-                <div class="tab"><i class="fas fa-bolt"></i> Email</div>
-                <div class="tab"><i class="fas fa-globe"></i> Website</div>
-            </div>
-            <section class="info-box blue-box">
-                <p><strong>9889 University Crescent</strong><br>
-                    Burnaby, V5A 4Z2<br>
-                    BC, Canada</p>
-            </section>
+ <!-- Replace only this part in contact.html -->
+<div class="container">
+  <div class="contact-tabs">
+    <div class="tab active" data-tab="address"><i class="fas fa-map-marker-alt"></i> Address</div>
+    <div class="tab" data-tab="phone"><i class="fas fa-phone"></i> Phone</div>
+    <div class="tab" data-tab="email"><i class="fas fa-bolt"></i> Email</div>
+    <div class="tab" data-tab="website"><i class="fas fa-globe"></i> Website</div>
+  </div>
+
+  <!-- Tab contents -->
+  <section class="info-box blue-box tab-content" id="address">
+    <p><strong>9889 University Crescent</strong><br>Burnaby, V5A 4Z2<br>BC, Canada</p>
+  </section>
+
+  <section class="info-box blue-box tab-content" id="phone" style="display: none;">
+    <p><strong>Phone:</strong> +1 604-123-4567</p>
+  </section>
+
+  <section class="info-box blue-box tab-content" id="email" style="display: none;">
+    <p><strong>Email:</strong> contact@example.com</p>
+  </section>
+
+  <section class="info-box blue-box tab-content" id="website" style="display: none;">
+    <p><strong>Website:</strong> www.example.com</p>
+  </section>
+</div>
+          
         </div>
     </main>
 
     <footer>
         <p>&copy; 2018. M.Bougerra. All rights reserved.</p>
     </footer>
+
+    <script src="js/contact.js"></script>
 </body>
 </html>
