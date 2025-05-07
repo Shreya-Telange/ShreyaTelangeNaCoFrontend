@@ -1,0 +1,232 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main Container */
+.container {
+    width: 60%;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+/* Make lists scrollable */
+.list-container ul {
+    max-height: 250px;  /* ✅ Fixed height for the list */
+    overflow-y: auto;   /* ✅ Enables scrolling if too many tasks */
+    padding-right: 5px; /* ✅ Prevents scrollbar from covering content */
+}
+
+/* Hide scrollbar in WebKit browsers (Chrome, Safari) */
+.list-container ul::-webkit-scrollbar {
+    width: 8px;
+}
+
+.list-container ul::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.list-container ul::-webkit-scrollbar-track {
+    background: #f0f0f0;
+}
+
+/* Title */
+h1 {
+    font-size: 26px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Input & Buttons */
+/* Ensure horizontal alignment on larger screens */
+.input-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/*Input Container */
+.input-container input {
+    flex: 1;
+    max-width: 60%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-size: 16px;
+}
+
+.input-container button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #6fcfbd; /* Keep existing color */
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    white-space: nowrap;
+}
+
+/* Responsive Design: Stack elements on smaller screens */
+@media screen and (max-width: 768px) {
+    .input-container {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .input-container input,
+    .input-container button {
+        width: 100%;
+        max-width: 400px; /* Prevent excessive stretching */
+    }
+}
+
+
+/* Buttons */
+button {
+    background-color: #6fcfbd;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #5bb0a2;
+}
+
+/* Remove Selected Button */
+#removeBtn {
+    background-color: #ff5c5c;
+}
+
+#removeBtn:hover {
+    background-color: #e04b4b;
+}
+
+.lists {
+    display: flex;
+    justify-content: space-between; /* Ensure even spacing */
+    align-items: center; /* Center items vertically */
+    gap: 20px; /* Increase gap to avoid overlapping */
+    margin-top: 20px;
+    width: 100%; /* Ensure full width */
+}
+
+.list-container {
+   background: #f8f8f8;
+   padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 300px;
+    
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* List Styling */
+h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background: white;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+li:hover {
+    background: #e8f6f3;
+}
+
+/* Highlight Selected Task */
+li.selected {
+    background-color: #ffcc00;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 70%;
+    }
+
+    .lists {
+        flex-direction: column;
+    }
+
+    .list-container {
+        width: 100%;
+    }
+
+    .buttons-container {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+
+/* Toaster Notification */
+#toast {
+    min-width: 250px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    padding: 12px;    
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.5s, bottom 0.5s;
+}
+
+#toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 50px;
+}
+
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    20%, 80% { opacity: 1; }
+}
+
