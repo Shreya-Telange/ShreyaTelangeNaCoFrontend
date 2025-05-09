@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CMY Color Model</title>
+  <link rel="stylesheet" href="css/cmy.css" />
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo">Color Models</div>
+      <button class="hamburger" id="hamburger">&#9776;</button>
+    </div>
+    <nav id="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="rgb.html" class="active">RGB</a></li>
+        <li><a href="cmy.html">CMY</a></li>
+        <li><a href="web-safe-color.html">Web&nbsp;Safe&nbsp;Colors</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="flex-wrapper">
+        <!-- Left Box -->
+        <section class="info-box">
+          <div class="heading-banner" id="cmyHeading1">
+            <strong>
+              <span style="color:cyan;">Cyan</span>
+              <span style="color:magenta;">Magenta</span>
+              <span style="color:yellow;">Yellow</span> 
+              <span style="color:red;">(</span>
+              <span style="color:cyan;">C</span>
+              <span style="color:magenta;">M</span>
+              <span style="color:yellow;">Y</span> 
+              <span style="color:red;">)</span>
+            </strong>
+          </div>
+          <div class="white-content" id="cmyPara" >
+            <p>
+              <span style="color:cyan; font-weight:bold;">C</span>
+              <span style="color:magenta; font-weight:bold;">M</span>
+              <span style="color:yellow; font-weight:bold;">Y</span> is an 
+              <em>subtractive reflected light color model</em> where each color is stored in <strong>one byte </strong>.
+            </p>
+            <p>
+              All possible combinations of 
+              <strong><span style="color:cyan;">Cyan</span>, 
+                <span style="color:magenta;">Magenta</span>, 
+                <span style="color:gold;">Yellow</span></strong> give 
+                2<sup>24</sup> = 16,777,216 different colors.
+            </p>
+            <p>Starting with <strong>white</strong> color,to which different color <strong>inks</strong> are added to <strong>absorb (subtract)</strong> light that is reflected.</p>
+            
+          </div>
+        </section>
+    
+        <!-- Right Box -->
+        <section class="info-box green-box">
+          <div class="box-header">
+            
+            <strong>
+              <span style="color:cyan;">Cyan</span>
+              <span style="color:magenta;">Magenta</span>
+              <span style="color:yellow;">Yellow</span> 
+              <span style="color:green;">(</span>
+              <span style="color:cyan;">C</span>
+              <span style="color:magenta;">M</span>
+              <span style="color:yellow;">Y</span> 
+              <span style="color:green;">)</span>
+            </strong>
+          </div>
+        
+          <p id="cmyHeading2" ><strong>Select 
+            <span style="color:cyan;">C</span>
+            <span style="color:magenta;">M</span>
+            <span style="color:yellow;">Y</span> values:
+          </strong></p>
+        
+          <label for="cyan"><span style="color:cyan;">Cyan:</span></label>
+          <select id="cyan" onchange="displayRGBColor()"></select>
+        
+          <label for="magenta"><span style="color:magenta;">Magenta:</span></label>
+          <select id="magenta" onchange="displayRGBColor()"></select>
+        
+          <label for="yellow"><span style="color:yellow;">Yellow:</span></label>
+          <select id="yellow" onchange="displayRGBColor()"></select>
+        
+          <div class="output-table">
+            <table>
+              <tr>
+                <th>
+                  <span style="color:cyan;">C</span>
+            <span style="color:magenta;">M</span>
+            <span style="color:yellow;">Y</span>  Float Values
+                </th>
+                <th>
+                  <span style="color:cyan;">C</span>
+                  <span style="color:magenta;">M</span>
+                  <span style="color:yellow;">Y</span> Hexadecimal Values
+                </th>
+                <th>Display</th>
+              </tr>
+              <tr>
+                <td id="floatOutput"></td>
+                <td id="hexOutput"></td>
+                <td><div id="colorBox" style="width: 60px; height: 30px; border: 1px solid black;"></div></td>
+              </tr>
+            </table>
+          </div>
+        </section>
+      </div>  
+  </main>
+  
+
+  <footer>
+    <p>&copy; 2018. M.Bougerra. All rights reserved.</p>
+  </footer>
+
+  <script src="js/cmy.js"></script>
+</body>
+</html>

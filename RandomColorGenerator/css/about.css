@@ -1,0 +1,130 @@
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+body, html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+header {
+    background-color:  #366d7e;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 20px;
+}
+.nav-container {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px; 
+  }
+  
+  .logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+.hamburger {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: none;
+  }
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+  }
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.heading-banner{
+background-color: #BEE5EB; 
+color: white;
+text-align: left;
+padding: 19px;
+font-size: 16px;
+margin: 0;         
+border-bottom: 1px solid #ccc; }
+
+.info-box {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 60%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 0;
+}
+
+
+.blue-box {
+    background-color: #ffffff;
+    border: 1px solid #BEE5EB;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.info-box h2 {
+    color: #5abfdd;
+    font-size: 18px; 
+    font-weight: lighter;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.info-box p {
+    font-size: 14px;
+    font-style: italic;
+    text-align: left;
+}
+footer {
+    background:  rgb(139, 181, 221);
+    color: white;
+    font-family: monospace;
+    font-size: 11px;
+    text-align: center;
+    padding: 5px 10px;
+    width: fit-content;
+    margin: 20px auto;
+    border-radius: 5px;
+}

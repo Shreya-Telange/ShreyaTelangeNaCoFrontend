@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RGB Color Model</title>
+  <link rel="stylesheet" href="css/rgb.css" />
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo">Color Models</div>
+      <button class="hamburger" id="hamburger">&#9776;</button>
+    </div>
+    <nav id="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="rgb.html" class="active">RGB</a></li>
+        <li><a href="cmy.html">CMY</a></li>
+        <li><a href="web-safe-color.html">Web&nbsp;Safe&nbsp;Colors</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="flex-wrapper">
+        <!-- Left Box -->
+        <section class="info-box">
+          <div class="heading-banner">
+            <strong>
+              <span style="color:red;">Red</span>
+              <span style="color:green;">Green</span>
+              <span style="color:blue;">Blue</span> 
+              <span style="color:red;">(</span>
+              <span style="color:red;">R</span>
+              <span style="color:green;">G</span>
+              <span style="color:blue;">B</span> 
+              <span style="color:red;">)</span>
+            </strong>
+          </div>
+          <div class="white-content">
+            <p>
+              <span style="color:red; font-weight:bold;">R</span>
+              <span style="color:green; font-weight:bold;">G</span>
+              <span style="color:blue; font-weight:bold;">B</span> is an 
+              <em>additive color projected light color model</em> where each color is stored in <strong>one byte</strong>.
+            </p>
+            <p>
+              All possible combinations of 
+              <strong><span style="color:red;">red</span>, 
+              <span style="color:green;">green</span> and 
+              <span style="color:blue;">blue</span></strong> 
+              give 2<sup>24</sup> = 16,777,216 different colors.
+            </p>
+            <p>
+              Starting with (
+              <span style="color:red; font-weight:bold;">Red</span>, 
+              <span style="color:green; font-weight:bold;">Green</span>, 
+              <span style="color:blue; font-weight:bold;">Blue</span>) = 
+              <span style="color:black;">(0,0,0)</span> (Black), to which different color "lights" are added to produce visible colors.
+            </p>
+          </div>
+        </section>
+    
+        <!-- Right Box -->
+        <section class="info-box green-box">
+          <div class="box-header">
+            <strong>
+              <span style="color:red;">Red </span>
+              <span style="color:green;">Green </span>
+              <span style="color:blue;">Blue </span>
+              <span style="color:green;">(</span>
+              <span style="color:red;">R</span>
+              <span style="color:green;">G</span>
+              <span style="color:blue;">B</span> 
+              <span style="color:green;">)</span>
+            </strong>
+          </div>
+        
+          <p><strong>Select 
+            <span style="color:red;">R</span>
+            <span style="color:green;">G</span>
+            <span style="color:blue;">B</span> values:
+          </strong></p>
+        
+          <label for="red"><span style="color:red;">Red:</span></label>
+          <select id="red" onchange="displayRGBColor()"></select>
+        
+          <label for="green"><span style="color:green;">Green:</span></label>
+          <select id="green" onchange="displayRGBColor()"></select>
+        
+          <label for="blue"><span style="color:blue;">Blue:</span></label>
+          <select id="blue" onchange="displayRGBColor()"></select>
+        
+          <div class="output-table">
+            <table>
+              <tr>
+                <th>
+                  <span style="color:red;">R</span>
+                  <span style="color:green;">G</span>
+                  <span style="color:blue;">B</span> Float Values
+                </th>
+                <th>
+                  <span style="color:red;">R</span>
+                  <span style="color:green;">G</span>
+                  <span style="color:blue;">B</span> Hexadecimal Values
+                </th>
+                <th>Display</th>
+              </tr>
+              <tr>
+                <td id="floatOutput"></td>
+                <td id="hexOutput"></td>
+                <td><div id="colorBox" style="width: 60px; height: 30px; border: 1px solid black;"></div></td>
+              </tr>
+            </table>
+          </div>
+        </section>
+      </div>
+    </div>
+    
+      
+<div class="button-container" >
+    <button onclick="generateRandomColors()">Generate Random Colors</button>
+  </div>  
+    <div id="colorTableContainer"></div>
+    
+    
+  </main>
+
+  <footer>
+    <p>&copy; 2018. M.Bougerra. All rights reserved.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
