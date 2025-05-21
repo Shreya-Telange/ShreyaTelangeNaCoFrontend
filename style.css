@@ -1,41 +1,94 @@
+/* Reset and base styles */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    text-align: center;
-  }
-  
-  header {
-    background-color: #0074b7;
-    color: white;
-    padding: 2rem;
-  }
-  
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9fafb;
+  color: #333;
+  text-align: center;
+}
+
+/* Header Styling */
+header {
+  background-color: #4f46e5; /* Indigo-600 */
+  color: white;
+  padding: 2rem 1rem;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+header p {
+  margin: 0.5rem 0 0;
+  font-size: 1.1rem;
+}
+
+/* Card Layout */
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 2rem 1rem;
+  gap: 1.5rem;
+}
+
+/* Individual Card Styling */
+.card {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 280px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+  margin: 0.5rem 0;
+  font-size: 1.3rem;
+  color: #4f46e5;
+}
+
+.card p {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* Link Button */
+.card a {
+  display: inline-block;
+  margin-top: 0.75rem;
+  text-decoration: none;
+  color: white;
+  background-color: #4f46e5;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.card a:hover {
+  background-color: #4338ca; /* Indigo-700 */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .cards {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 2rem;
-    gap: 1.5rem;
+    flex-direction: column;
+    align-items: center;
   }
-  
+
+  header h1 {
+    font-size: 1.75rem;
+  }
+
   .card {
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    width: 250px;
+    max-width: 90%;
   }
-  
-  .card h2 {
-    margin: 0.5rem 0;
-  }
-  
-  .card a {
-    display: inline-block;
-    margin-top: 0.75rem;
-    text-decoration: none;
-    color: #0074b7;
-    font-weight: bold;
-  }
-  
+}
