@@ -74,10 +74,9 @@ header p {
 }
 
 .card a:hover {
-  background-color: #4338ca; /* Indigo-700 */
-}
-
-/* Responsive Design */
+  background-color: #5e9aa7; 
+  
+  Responsive Design */
 @media (max-width: 768px) {
   .cards {
     flex-direction: column;
