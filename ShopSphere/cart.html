@@ -1,0 +1,34 @@
+<!-- cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cart - ShopSphere</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">ShopSphere</a>
+      <span class="text-white">🛒 Cart</span>
+    </div>
+  </nav>
+
+  <!-- Cart Items -->
+  <div class="container my-5">
+    <h2 class="mb-4">Your Cart</h2>
+    <div id="cart-items" class="row"></div>
+    <div id="cart-summary" class="mt-4"></div>
+  </div>
+
+  <!-- JS -->
+  <script src="scripts/api.js"></script>
+  <script src="scripts/cart.js"></script>
+</body>
+</html>
