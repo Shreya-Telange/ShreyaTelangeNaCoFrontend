@@ -1,11 +1,10 @@
-// scripts/main.js
-
 document.addEventListener('DOMContentLoaded', async () => {
   const products = await fetchProducts();
   renderProducts(products);
   initializeCart();
   updateCartCount();
   greetUser();
+  renderCategoryDropdown(products); // ✅ moved here safely
 });
 
 function renderProducts(products) {
@@ -14,11 +13,13 @@ function renderProducts(products) {
 
   products.forEach(product => {
     const col = document.createElement('div');
-    col.className = 'col-sm-6 col-md-4 col-lg-3 d-flex align-items-stretch mb-4'; // added spacing between rows
+    col.className = 'col-sm-6 col-md-4 col-lg-3 d-flex align-items-stretch mb-4';
 
     col.innerHTML = `
       <div class="card h-100 position-relative">
-        <img src="${product.image}" class="card-img-top" alt="${product.title}">
+        <a href="product.html?id=${product.id}">
+          <img src="${product.image}" class="card-img-top" alt="${product.title}">
+        </a>
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">${product.title}</h5>
           <p class="card-text text-truncate">${product.description}</p>
@@ -33,7 +34,7 @@ function renderProducts(products) {
   });
 }
 
-// 🛒 Cart logic
+// Cart logic
 function addToCart(productId) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   const productIndex = cart.findIndex(item => item.id === productId);
@@ -64,7 +65,6 @@ function updateCartCount() {
   }
 }
 
-// ❤️ Wishlist
 function toggleWishlist(productId) {
   let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
   if (wishlist.includes(productId)) {
@@ -77,11 +77,30 @@ function toggleWishlist(productId) {
   localStorage.setItem("wishlist", JSON.stringify(wishlist));
 }
 
-// 👤 Login Greeting
 function greetUser() {
   const user = localStorage.getItem("loggedInUser");
   const greet = document.getElementById("user-greeting");
   if (user && greet) {
     greet.textContent = `👋 Welcome, ${user}`;
   }
+}
+
+function renderCategoryDropdown(products) {
+  const categories = [...new Set(products.map(p => p.category))];
+  const select = document.getElementById("category-filter");
+
+  categories.forEach(cat => {
+    const option = document.createElement("option");
+    option.value = cat;
+    option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+    select.appendChild(option);
+  });
+
+  select.addEventListener("change", (e) => {
+    const selected = e.target.value;
+    const filtered = selected === "all"
+      ? products
+      : products.filter(p => p.category === selected);
+    renderProducts(filtered);
+  });
 }
